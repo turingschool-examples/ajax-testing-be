@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const foodsRouter = require('./lib/routers/foods-router');
+const cors = require('cors');
+
+app.use(cors({origin: '*'}))
 
 app.use(bodyParser.json());
 app.use('/api/v1/foods/', foodsRouter);
