@@ -1,9 +1,9 @@
 const assert = require('assert');
 const request = require('request');
 const app = require('../server');
-const Food = require('../lib/models/food');
+const Entry = require('../lib/models/entry');
 
-describe('Foods API', () => {
+describe('Entries API', () => {
 
   before((done) => {
     this.port = 9876;
@@ -23,34 +23,39 @@ describe('Foods API', () => {
   context('GET /api/v1/:id', () => {
 
     beforeEach((done) => {
-      Food.create({name: "Banana", calories: 35})
+      Entry.create(
+        {
+          author: "nate@turing.io",
+          body: "This is a post about making cupcakes. The internet loves cupcakes."
+        }
+      )
         .then(() => done())
         .catch(done);
     });
 
     afterEach((done) => {
-      Food.destroyAll()
+      Entry.destroyAll()
         .then(() => done())
         .catch(done);
     });
 
     it('should return a 404 if the resource is not found', (done) => {
-      this.request.get('/api/v1/foods/10000', (error, response) => {
+      this.request.get('/api/v1/entries/10000', (error, response) => {
         if (error) { done(error) }
         assert.equal(response.statusCode, 404)
         done()
       })
     })
 
-    it('should have the name and calories from the food', (done) => {
-      Food.find(1).then( (food) => {
-        this.request.get(`/api/v1/foods/1`, (error, response) => {
+    it('should have the author and body from the entry', (done) => {
+      Entry.find(1).then( (entry) => {
+        this.request.get(`/api/v1/entries/1`, (error, response) => {
   		    if (error) { done(error); }
 
-          let responseFood = JSON.parse(response.body);
+          let responseEntry = JSON.parse(response.body);
 
-  		    assert.equal(food.name, responseFood.name, `"${response.body}" does not include "${food.name}".`);
-  		    assert.equal(food.calories, responseFood.calories, `"${response.body}" does not include "${food.calories}".`);
+  		    assert.equal(entry.author, responseEntry.author, `"${response.body}" does not include "${entry.author}".`);
+  		    assert.equal(entry.body, responseEntry.body, `"${response.body}" does not include "${entry.body}".`);
   		    done();
   		  });
       });

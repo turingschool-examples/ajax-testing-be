@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const foodsRouter = require('./lib/routers/foods-router');
+const entriesRouter = require('./lib/routers/entries-router');
 const cors = require('cors');
 
 app.use(cors({origin: '*'}))
 
 app.use(bodyParser.json());
-app.use('/api/v1/foods/', foodsRouter);
+app.use('/api/v1/entries/', entriesRouter);
 
 app.get('/', (request, response) => {
   response.send('Hello World!');
@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 if (!module.parent) { // NEW!
   let port = process.env.PORT || 3000;
   app.listen(port, () => {
-    console.log('QS is live! (http://localhost:3000)');
+    console.log('The API is live! (http://localhost:3000)');
   });
 }
 
