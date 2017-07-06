@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha test/*-test.js",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "debug": "NODE_ENV=test mocha debug test/*-test.js"
   },
   "keywords": [],
@@ -22,7 +22,6 @@
     "pg": "^6.1.5"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "chai": "^3.5.0"
   }
 }
