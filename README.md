@@ -10,6 +10,22 @@ A simple app so you can practice integration testing in Javascript. This is the 
   npm install
   ```
 
+2. Create your databases
+
+  ```
+  psql
+
+  # CREATE DATABASE ajax_testing_development;
+  # CREATE DATABASE ajax_testing_test;
+  ```
+
+4. Migrate your dev and test databases, and seed dev
+   ```
+   knex migrate:latest
+   knex migrate:latest --env test
+   knex seed:run
+   ```
+
 ## Run the Server
 
 To see your code in action, you need to fire up a development server. Use the command:
